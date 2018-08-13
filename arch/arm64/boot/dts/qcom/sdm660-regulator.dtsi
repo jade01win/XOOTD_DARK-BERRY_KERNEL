@@ -291,6 +291,18 @@
 		};
 	};
 
+	rpm-regulator-ldoa16 {
+		status = "okay";
+		pm660_l16: regulator-l16 {
+			regulator-min-microvolt = <2800000>;
+			regulator-max-microvolt = <2800000>;
+			status = "okay";
+			regulator-always-on;
+		};
+	};
+
+
+
 	rpm-regulator-ldoa17 {
 		status = "okay";
 		pm660_l17: regulator-l17 {
@@ -345,6 +357,7 @@
 			regulator-min-microvolt = <1710000>;
 			regulator-max-microvolt = <3600000>;
 			status = "okay";
+			regulator-always-on;
 		};
 	};
 
@@ -380,11 +393,7 @@
 		pm660l_l7: regulator-l7 {
 			regulator-min-microvolt = <2700000>;
 			regulator-max-microvolt = <3125000>;
-		/* Huaqin add for change LDO by xuefeng at 2018/01/31 start */
-			//parent-supply = <&pm660_l10>;
-			qcom,init-voltage = <3125000>;
-			regulator-always-on;
-		/* Huaqin add for change LDO by xuefeng at 2018/01/31 end */
+			parent-supply = <&pm660_l10>;
 			status = "okay";
 		};
 	};
@@ -392,10 +401,8 @@
 	rpm-regulator-ldob8 {
 		status = "okay";
 		pm660l_l8: regulator-l8 {
-			/*Huaqin modify for af_vdd voltage by lizihao at 2015/02/05 start*/
-			regulator-min-microvolt = <2800000>;
-			regulator-max-microvolt = <2800000>;
-			/*Huaqin modify for af_vdd voltage by lizihao at 2015/02/05 end*/
+			regulator-min-microvolt = <3200000>;
+			regulator-max-microvolt = <3400000>;
 			status = "okay";
 		};
 	};
@@ -707,7 +714,7 @@
 
 				qcom,cpr-fuse-corners = <5>;
 				qcom,cpr-fuse-combos = <32>;
-				qcom,cpr-speed-bins = <4>;
+				qcom,cpr-speed-bins = <5>;
 				qcom,cpr-speed-bin-corners = <8 8 0 8>;
 				qcom,cpr-corners =
 					/* Speed bin 0 */
@@ -721,6 +728,8 @@
 
 					/* Speed bin 3 */
 					<8 8 8 8 8 8 8 8>;
+					/* Speed bin 4 */
+					<8 8 8 8 8 8 8 8>;
 				qcom,cpr-corner-fmax-map =
 					/* Speed bin 0 */
 					<2 3 4 5 8>,
@@ -733,30 +742,37 @@
 
 					/* Speed bin 3 */
 					<2 3 4 5 8>;
+					/* Speed bin 4 */
+					<2 3 4 5 8>;
 
 				qcom,cpr-voltage-ceiling =
-					< 724000  724000  724000  788000  868000
-					 1068000 1068000 1068000>;
+					<474000  644000  644000  708000  788000  950000
+					 950000  950000  950000>;
 
 				qcom,cpr-voltage-floor =
-					<588000  588000  596000  652000  712000
-					 744000  784000  844000>;
+					<388000  588000  596000  652000  712000  744000
+					 784000  844000  844000>;
 
 				qcom,corner-frequencies =
 					/* Speed bin 0 */
 					<300000000  633600000  902400000
 					1113600000 1401600000 1536000000
-					1747200000 1843200000>,
+					1612800000 1747200000 1843200000>,
 
 					/* Speed bin 1 */
 					<300000000  633600000  902400000
 					1113600000 1401600000 1536000000
-					1747200000 1843200000>,
+					1612800000 1747200000 1843200000>,
 
 					/* Speed bin 3 */
 					<300000000  633600000  902400000
 					1113600000 1401600000 1536000000
-					1612800000 1843200000>;
+					1612800000 1747200000 1843200000>,
+
+					/* Speed bin 4 */
+					<300000000  633600000  902400000
+					1113600000 1401600000 1536000000
+					1612800000 1747200000 1843200000>;
 
 				qcom,allow-voltage-interpolation;
 				qcom,allow-quotient-interpolation;
@@ -783,11 +799,11 @@
 					< (-4000)  4000  7000  19000 (-8000)>;
 
 				qcom,cpr-closed-loop-voltage-fuse-adjustment =
-					<(-32000) (-30000) (-29000) (-38000)
-					(-36000)>;
+					<(-32000) (-30000) (-29000) (-23000)
+					(-21000)>;
 
 				qcom,cpr-floor-to-ceiling-max-range =
-					<32000  32000  32000  40000  44000
+					<32000  32000  32000  40000  44000  40000
 					 40000  40000  40000>;
 			};
 		};
@@ -846,7 +862,7 @@
 
 				qcom,cpr-fuse-corners = <5>;
 				qcom,cpr-fuse-combos = <32>;
-				qcom,cpr-speed-bins = <4>;
+				qcom,cpr-speed-bins = <5>;
 				qcom,cpr-speed-bin-corners = <7 7 0 7>;
 				qcom,cpr-corners =
 					/* Speed-bin 0 */
@@ -860,6 +876,8 @@
 
 					/* Speed-bin 3 */
 					<7 7 7 7 7 7 7 7>;
+					/* Speed-bin 4 */
+					<10 10 10 10 10 10 10 10>;
 
 				qcom,cpr-corner-fmax-map =
 					/* Speed-bin 0 */
@@ -873,30 +891,41 @@
 
 					/* Speed-bin 3 */
 					<2 3 4 6 7>;
+					/* Speed-bin 4 */
+					<2 3 4 6 7>;
 
 				qcom,cpr-voltage-ceiling =
-					<724000  724000  788000  868000
-					 988000  988000 1068000>;
+					<474000  544000  604000  644000  708000  788000
+					 978000  978000  950000  950000>;
 
 				qcom,cpr-voltage-floor =
-					<588000  596000  652000  712000
-					 744000  784000  844000>;
+					<338000  478000  538000  596000  652000  712000
+					 744000  784000  844000  844000>;
 
 				qcom,corner-frequencies =
 					/* Speed bin 0 */
-					<300000000  1113600000 1401600000
-					 1747200000 1958400000 2150400000
+					<300000000  633600000  902400000  
+                                         1113600000 1401600000 1747200000 
+                                         1958400000 2150400000 2208000000
 					 2457600000>,
 
 					/* Speed bin 1 */
-					<300000000  1113600000 1401600000
-					 1747200000 1958400000 2150400000
-					 2208000000>,
+					<300000000  633600000  902400000 
+					 1113600000 1401600000 1747200000 
+					 1958400000 2150400000 2208000000
+					 2457600000>,
 
 					/* Speed bin 3 */
-					<300000000  1113600000 1401600000
-					 1747200000 1804800000 2150400000
-					 2208000000>;
+					<300000000  633600000  902400000 
+					 1113600000 1401600000 1747200000 
+					 1804800000 1958400000 2150400000
+					 2208000000>,
+
+					/* Speed bin 4 */
+					<300000000  633600000  902400000 
+					 1113600000 1401600000 1747200000 
+					 1958400000 2150400000 2208000000
+					 2457600000>;
 
 				qcom,allow-voltage-interpolation;
 				qcom,allow-quotient-interpolation;
@@ -927,8 +956,8 @@
 					   11000>;
 
 				qcom,cpr-floor-to-ceiling-max-range =
-					<40000  40000  40000  40000
-					 66000  66000  40000>;
+					<40000  40000  40000  40000  40000  40000
+					 66000  66000  66000  40000>;
 			};
 		};
 	};
